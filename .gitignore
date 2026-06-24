@@ -1,0 +1,16 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+.venv/
+venv/
+
+backend/venv/
+
+.git/
+
+.DS_Storevenv/
+.venv/
+__pycache__/
+*.pyc
