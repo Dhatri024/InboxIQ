@@ -25,7 +25,7 @@ function App() {
     try {
 
       const response = await fetch(
-        "http://127.0.0.1:8000/analyze",
+        "https://dhatri-02-inboxiq-backend.hf.space/analyze",
         {
           method: "POST",
           headers: {
@@ -48,6 +48,7 @@ function App() {
     }
 
     setLoading(false);
+
   };
 
   const urgencyColor = () => {
@@ -62,7 +63,7 @@ function App() {
 
     return "text-green-400";
   };
-
+  
   return (
 
     <div className="min-h-screen bg-gradient-to-br from-black via-zinc-950 to-zinc-900 text-white p-8">

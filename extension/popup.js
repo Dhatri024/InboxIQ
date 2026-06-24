@@ -53,7 +53,7 @@ analyzeBtn.addEventListener("click", async () => {
 
   try {
     // ✅ FIXED FETCH (UTF-8 SAFE HEADERS ADDED HERE)
-    const response = await fetch("http://127.0.0.1:8000/analyze", {
+    const response = await fetch("https://dhatri-02-inboxiq-backend.hf.space/analyze", {
       method: "POST",
       headers: {
         "Content-Type": "application/json; charset=utf-8",
