@@ -1,0 +1,22 @@
+{
+  "manifest_version": 3,
+
+  "name": "InboxIQ",
+
+  "version": "1.0",
+
+  "description": "AI Email Intelligence Assistant",
+
+  "permissions": [
+    "activeTab",
+    "scripting"
+  ],
+
+  "host_permissions": [
+    "https://mail.google.com/*"
+  ],
+
+  "action": {
+    "default_popup": "popup.html"
+  }
+}

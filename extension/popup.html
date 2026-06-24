@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+  <title>InboxIQ</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <link rel="stylesheet" href="popup.css">
+
+  <meta charset="UTF-8">
+
+</head>
+
+<body>
+
+  <div class="container">
+
+  <h2>📩 InboxIQ AI</h2>
+
+  <!-- EMAIL INPUT -->
+  <textarea id="emailInput" placeholder="Paste or extract email here..."></textarea>
+
+  <!-- EXTRACT BUTTON -->
+  <button id="extractBtn">📥 Extract Email</button>
+
+  <!-- TONE SELECTOR (NEW FEATURE 🔥) -->
+  <label style="margin-top:10px;">Select Tone:</label>
+
+  <select id="toneSelect">
+    <option value="formal">Formal</option>
+    <option value="friendly">Friendly</option>
+    <option value="short">Short</option>
+  </select>
+
+  <!-- ANALYZE BUTTON -->
+  <button id="analyzeBtn">⚡ Analyze Email</button>
+
+  <!-- RESULT -->
+  <div id="result"></div>
+
+</div>
+
+  <script src="popup.js"></script>
+
+</body>
+
+</html>
