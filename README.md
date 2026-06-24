@@ -259,9 +259,9 @@ Manager
 
 ### Screenshots
 
-![Uploading Screenshot 2026-06-25 at 6.32.29 PM.png…]()
+<img width="1430" height="678" alt="Screenshot 2026-06-25 at 6 41 06 PM" src="https://github.com/user-attachments/assets/ec2e201f-31fb-4cb6-adf1-f25c9014ff72" />
 
-<img width="1000" height="800" alt="Screenshot 2026-06-25 at 6 32 08 PM" src="https://github.com/user-attachments/assets/0e2bea35-fc30-41de-8862-674aeaa4bdee" />
+<img width="1430" height="878" alt="Screenshot 2026-06-25 at 6 32 08 PM" src="https://github.com/user-attachments/assets/0e2bea35-fc30-41de-8862-674aeaa4bdee" />
 
 <img width="1000" height="500" alt="Screenshot 2026-06-25 at 6 33 40 PM" src="https://github.com/user-attachments/assets/5c42f1a1-164c-4cf6-9702-332180ba7310" />
 <img width="400" height="600" alt="Screenshot 2026-06-25 at 6 35 04 PM" src="https://github.com/user-attachments/assets/e7b09d98-20ab-44ad-a6b7-71699f2ed946" />
