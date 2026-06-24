@@ -261,13 +261,13 @@ Manager
 
 ![Uploading Screenshot 2026-06-25 at 6.32.29 PM.png…]()
 
-<img width="1439" height="818" alt="Screenshot 2026-06-25 at 6 32 08 PM" src="https://github.com/user-attachments/assets/0e2bea35-fc30-41de-8862-674aeaa4bdee" />
+<img width="1000" height="800" alt="Screenshot 2026-06-25 at 6 32 08 PM" src="https://github.com/user-attachments/assets/0e2bea35-fc30-41de-8862-674aeaa4bdee" />
 
-<img width="1355" height="517" alt="Screenshot 2026-06-25 at 6 33 40 PM" src="https://github.com/user-attachments/assets/5c42f1a1-164c-4cf6-9702-332180ba7310" />
-<img width="438" height="644" alt="Screenshot 2026-06-25 at 6 35 04 PM" src="https://github.com/user-attachments/assets/e7b09d98-20ab-44ad-a6b7-71699f2ed946" />
-<img width="414" height="635" alt="Screenshot 2026-06-25 at 6 36 16 PM" src="https://github.com/user-attachments/assets/d9b632bd-fc65-461e-bc88-d012bcca12e8" />
+<img width="1000" height="500" alt="Screenshot 2026-06-25 at 6 33 40 PM" src="https://github.com/user-attachments/assets/5c42f1a1-164c-4cf6-9702-332180ba7310" />
+<img width="400" height="600" alt="Screenshot 2026-06-25 at 6 35 04 PM" src="https://github.com/user-attachments/assets/e7b09d98-20ab-44ad-a6b7-71699f2ed946" />
+<img width="400" height="600" alt="Screenshot 2026-06-25 at 6 36 16 PM" src="https://github.com/user-attachments/assets/d9b632bd-fc65-461e-bc88-d012bcca12e8" />
 
-<img width="412" height="629" alt="Screenshot 2026-06-25 at 6 36 47 PM" src="https://github.com/user-attachments/assets/24d03fa7-44ca-47fd-bfa6-2b0da9fd6e59" />
+<img width="400" height="600" alt="Screenshot 2026-06-25 at 6 36 47 PM" src="https://github.com/user-attachments/assets/24d03fa7-44ca-47fd-bfa6-2b0da9fd6e59" />
 
 
 ## Deployment Links
