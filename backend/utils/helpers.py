@@ -49,26 +49,82 @@ def detect_urgency(text):
 # -----------------------------
 # ACTION ITEM EXTRACTION
 # -----------------------------
+
 def extract_action_items(text):
+    if not text or not text.strip():
+        return []
 
-    sentences = re.split(r'(?<=[.!?]) +', text)
+    sentences = re.split(r"(?<=[.!?])\s+", text.strip())
 
-    action_keywords = [
-        "submit", "complete", "review", "send",
-        "update", "schedule", "finish", "prepare",
-        "call", "report", "share", "reply"
-    ]
+    request_starters = (
+        "please ", "kindly ", "could you ", "can you ",
+        "would you ", "could you please ", "can you please ",
+        "would you please ", "don't forget to ", "remember to ",
+    )
 
-    action_items = []
+    action_verbs = (
+        "submit", "complete", "review", "send", "update",
+        "schedule", "finish", "prepare", "call", "contact",
+        "share", "reply", "confirm", "respond", "attend",
+        "provide", "approve", "check", "verify", "investigate",
+        "report", "follow up", "let me know",
+    )
+
+    imperative_verbs = (
+        "submit", "complete", "review", "send", "update",
+        "schedule", "finish", "prepare", "call", "contact",
+        "share", "reply", "confirm", "respond", "attend",
+        "provide", "approve", "check", "verify", "investigate",
+        "report", "follow up",
+    )
+
+    explicit_actions = []
+    other_actions = []
 
     for sentence in sentences:
-        lower = sentence.lower()
+        cleaned = sentence.strip()
 
-        if any(word in lower for word in action_keywords):
-            if len(sentence.split()) < 40:   # IMPORTANT FILTER
-                action_items.append(sentence.strip())
+        # Remove greetings such as "Hi Team," or "Hello,"
+        cleaned = re.sub(
+            r"^(?:hi|hello)(?:\s+[^,!?]+)?\s*[,!?]\s*",
+            "",
+            cleaned,
+            flags=re.IGNORECASE,
+        )
+        cleaned = re.sub(
+            r"^dear\s+[^,]+,\s*",
+            "",
+            cleaned,
+            flags=re.IGNORECASE,
+        )
 
-    return action_items[:5]
+        if not cleaned or len(cleaned.split()) >= 40:
+            continue
+
+        lower = cleaned.lower()
+
+        # Avoid interpreting an informational interview notice as a task.
+        if "interview is scheduled" in lower:
+            continue
+
+        if not any(
+            re.search(r"\b" + re.escape(verb) + r"\b", lower)
+            for verb in action_verbs
+        ):
+            continue
+
+        if lower.startswith(request_starters):
+            explicit_actions.append(cleaned)
+        elif lower.startswith(tuple(v + " " for v in imperative_verbs)):
+            other_actions.append(cleaned)
+
+    results = []
+    for item in explicit_actions + other_actions:
+        if item not in results:
+            results.append(item)
+
+    return results[:5]
+
 
 # -----------------------------
 # KEYWORD EXTRACTION (IMPROVED)
