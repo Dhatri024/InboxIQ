@@ -6,25 +6,16 @@ venv/
 .venv/
 backend/venv/
 backend/.venv/
-
 __pycache__/
 *.pyc
+*.pyo
+*.pyd
 
 # Node
 node_modules/
-
-# Build folders
 dist/
 build/
 
-# VS Code
-.vscode/
-
-# Environment files
-.env
-.env.local
-
-# Logs
-*.log
-
-inboxiq-backend/
+# Git
+.git/
+EOF 
