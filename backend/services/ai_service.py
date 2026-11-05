@@ -61,23 +61,41 @@ def generate_summary(text):
             "and requests an investigation and an update on its resolution."
         )
 
+    
     if "interview" in lower and _contains(
-        lower, ["invite", "invitation", "invited", "pleased to invite"]
+        lower,
+        [
+            "invite", "invitation", "invited",
+            "pleased to invite", "shortlisted",
+            "selected", "scheduled",
+        ],
     ):
         return (
-            "The sender invites the recipient to a technical interview "
-            "and requests confirmation of availability."
+            "The sender informs the recipient about an interview "
+            "opportunity and provides the relevant interview details "
+            "and instructions."
         )
 
+
+    
     if "meeting" in lower and _contains(
         lower, ["scheduled", "share the meeting notes", "minutes of meeting"]
     ):
-        if "share" in lower or "forward" in lower:
+        if _contains(lower, ["minutes of meeting", "meeting notes"]):
+            return (
+                "The sender shares meeting-related information "
+                "and requests review or follow-up on the meeting notes."
+            )
+
+        if "share the report" in lower:
             return (
                 "The sender provides meeting scheduling information "
-                "and requests that the meeting notes be shared."
+                "and requests preparation of the presentation, "
+                "review of project updates, and sharing of the report."
             )
+
         return "The sender provides information about a scheduled meeting."
+
 
     if len(cleaned) <= 2:
         return " ".join(cleaned)[:500]
@@ -140,8 +158,23 @@ def analyze_sentiment(text):
 # EMAIL CLASSIFICATION
 # --------------------------------------------------
 
+
 def classify_email(text):
     lower = clean_text(text).lower()
+
+    # Specific email types take precedence over general keywords
+    if any(word in lower for word in [
+        "interview", "recruiter", "job application",
+        "hiring", "shortlisted for the technical interview",
+    ]):
+        return "Work"
+
+    if any(word in lower for word in [
+        "meeting", "minutes of meeting", "calendar invite",
+        "zoom call", "teams call", "project review meeting",
+        "meeting scheduled",
+    ]):
+        return "Meeting"
 
     patterns = {
         "Finance": [
@@ -152,10 +185,6 @@ def classify_email(text):
             "not working", "technical issue", "bug",
             "error", "troubleshoot", "help", "failed",
             "failure", "unable to access",
-        ],
-        "Meeting": [
-            "meeting", "minutes of meeting", "calendar invite",
-            "zoom call", "teams call",
         ],
         "Work": [
             "project", "task", "report", "assignment",
@@ -178,15 +207,19 @@ def classify_email(text):
         for category, keywords in patterns.items()
     }
 
-    # Select the category with the strongest keyword match.
-    category_priority = ("Spam", "Finance", "Support", "Work", "Meeting", "Personal")
-    matched = [category for category in category_priority if scores[category] > 0]
+    category_priority = (
+        "Spam", "Finance", "Support", "Work", "Personal"
+    )
+
+    matched = [
+        category for category in category_priority
+        if scores[category] > 0
+    ]
 
     if not matched:
         return "Work"
 
     return max(matched, key=lambda category: scores[category])
-
 
 # --------------------------------------------------
 # EMAIL TYPE DETECTION
@@ -359,30 +392,47 @@ def suggest_reminder(text):
     return "No reminder needed"
 
 
+
 def generate_smart_reply(text, tone="formal"):
     lower = clean_text(text).lower()
     tone = (tone or "formal").lower()
 
+    # Respect explicit no-reply instructions
+    no_reply_patterns = [
+        r"\bplease do not reply\b",
+        r"\bdo not reply\b",
+        r"\bplease don't reply\b",
+        r"\bdon't reply\b",
+        r"\bdo not respond\b",
+        r"\bplease do not respond\b",
+        r"\bno reply is required\b",
+        r"\bno response is required\b",
+    ]
+
+    if any(re.search(pattern, lower) for pattern in no_reply_patterns):
+        return "No reply needed. The sender has explicitly requested no response."
+
     formal = tone not in ("friendly", "casual", "informal")
     greeting = "Dear Sender," if formal else "Hello,"
 
-    if "interview" in lower and _contains(
-        lower, ["invite", "invitation", "invited", "pleased to invite"]
-    ):
+    if "interview" in lower:
         body = (
-            "Thank you for the interview invitation. "
-            "I will review the details and confirm my availability shortly."
+            "Thank you for the interview update. "
+            "I have noted the details and will be prepared accordingly."
         )
 
-    elif _contains(lower, ["meeting notes", "minutes of meeting", "mom attached"]):
+    elif _contains(lower, [
+        "meeting notes", "minutes of meeting", "mom attached",
+        "project review meeting",
+    ]):
         body = (
             "Thank you for sharing the meeting information. "
-            "I will review the notes and follow up if anything needs clarification."
+            "I will review the details and prepare the requested updates."
         )
 
     elif _contains(lower, [
         "payment failed", "payment failure",
-        "transactions have failed", "payment processing issue",
+        "transaction failed", "payment processing issue",
     ]):
         body = (
             "Thank you for bringing this issue to our attention. "
@@ -391,21 +441,35 @@ def generate_smart_reply(text, tone="formal"):
         )
 
     elif _contains(lower, [
+        "account is not working", "cannot log in",
+        "unable to login", "login issue",
+    ]):
+        body = (
+            "Thank you for reporting this issue. "
+            "We will investigate the problem and work towards resolving it."
+        )
+
+    elif _contains(lower, [
         "share the document", "send the report",
         "attach the file", "provide the document",
     ]):
         body = (
             "Thank you for your request. "
-            "I will review the document requirements and follow up accordingly."
+            "I will review the requirements and share the requested information."
         )
 
-    elif _contains(lower, ["deadline", "due tomorrow", "submit by", "project report"]):
+    elif _contains(lower, [
+        "deadline", "due tomorrow", "submit by", "project report",
+    ]):
         body = (
             "Thank you for the update. "
             "I have noted the requested timeline and will review the next steps."
         )
 
-    elif _contains(lower, ["thank you", "thanks for your help", "appreciate your support"]):
+    elif _contains(lower, [
+        "thank you", "thanks for your help",
+        "appreciate your support",
+    ]):
         body = (
             "You're welcome. "
             "Please feel free to reach out if you need anything else."
